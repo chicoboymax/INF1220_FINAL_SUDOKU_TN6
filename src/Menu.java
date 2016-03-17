@@ -29,6 +29,8 @@ public class Menu extends JMenuBar implements ActionListener {
 	JMenu m3;
 	JMenu m4;
 	JMenu m5;
+	JMenu m6;
+	
 	JMenuItem m12;
 	JMenuItem m121;
 	JMenuItem m122;
@@ -43,34 +45,37 @@ public class Menu extends JMenuBar implements ActionListener {
 	JMenuItem m442;
 	
 	JMenuItem m551;
+	
+	JMenuItem m661;
 
 	public Menu(Interface map) {
 		super();
 		this.map = map;
 		m1 = new JMenu("Nouvelle grille");
 		m2 = new JMenu("Solutionner Grille");
-		m3 = new JMenu("Générer une grille");
+		m3 = new JMenu("Générer grille");
 		m4 = new JMenu("Fonctions supplémentaires");
 		m5 = new JMenu("Aide");
+		m6 = new JMenu("Édition");
 
 		m121 = new JMenuItem("Niveau fort");
 		m122 = new JMenuItem("Niveau moyen");
 		m123 = new JMenuItem("Niveau faible");
-		m12 = new JMenuItem("S�lectionner dans une liste");
+		m12 = new JMenuItem("Sélectionner dans une liste");
 		m121.addActionListener(this);
 		m122.addActionListener(this);
 		m123.addActionListener(this);
 		m12.addActionListener(this);
 
 		
-		m222 = new JMenuItem("Vider la Grille");
+		m222 = new JMenuItem("Vider Grille");
 		m222.addActionListener(this);
 		m1.add(m222);
 
-		m331 = new JMenuItem("Afficher la solution");
+		m331 = new JMenuItem("Afficher solution");
 		m331.addActionListener(this);
 		m2.add(m331);
-		m332 = new JMenuItem("Cacher la solution");
+		m332 = new JMenuItem("Cacher solution");
 		m332.addActionListener(this);
 		m2.add(m332);
 		m332.setEnabled(false);
@@ -85,6 +90,10 @@ public class Menu extends JMenuBar implements ActionListener {
 		m551 = new JMenuItem("Consulter les règles du jeu SUDOKU");
 		m551.addActionListener(this);
 		m5.add(m551);
+		
+		m661 = new JMenuItem("Annuler Placement");
+		m661.addActionListener(this);
+		m6.add(m661);
 
 		m3.add(m121);
 		m3.add(m122);
@@ -96,8 +105,9 @@ public class Menu extends JMenuBar implements ActionListener {
 		this.add(m2);
 		this.add(m3);
 		this.add(m4);
+		this.add(m6);
 		this.add(m5);
-
+		
 		// PERMET DE DESACTIVER CERTAINS ELEMENTS PAR DEFAUT
 
 	}
