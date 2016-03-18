@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 /*
  * modifi� le 10 d�c. 2009
  *
@@ -12,6 +14,15 @@ public class Sudoku extends Thread {
 	int placements = 0;
 	int complexite = 0;
 	int[][] tableaufinal;
+	private ArrayList<Case> historiquePlacements = new ArrayList<>();
+
+	public ArrayList<Case> getHistoriquePlacements() {
+		return historiquePlacements;
+	}
+
+	public void setHistoriquePlacements(ArrayList<Case> historiquePlacements) {
+		this.historiquePlacements = historiquePlacements;
+	}
 
 	public Sudoku(int n) {
 		this.n = n;
@@ -388,6 +399,8 @@ public class Sudoku extends Thread {
 	 *            grille � d�finir.
 	 */
 	public void setGrille(int i, int e, int donnee) {
+		Case placement = new Case(i, e, this.grille[i][e], donnee);
+		this.historiquePlacements.add(placement);
 		grille[i][e] = donnee;
 	}
 
@@ -480,6 +493,7 @@ public class Sudoku extends Thread {
 	 *            grille � d�finir.
 	 */
 	public void setGrille(int[][] grille) {
+		
 		this.grille = grille;
 	}
 
@@ -488,6 +502,26 @@ public class Sudoku extends Thread {
 	 */
 	public int[][] getTableaufinal() {
 		return tableaufinal;
+	}
+	
+		
+
+	/*********************************************************************************/
+	/*
+	 * Méthode utilisée pour annuler le dernier placement Protected, car
+	 * utilisée seulement par les sous-classes. Dans Sudoku.java, car le
+	 * fonctionnement est commun pour tous les types de Sudoku
+	 */
+	/********************************************************************************/
+	protected void annulerPlacement() {
+		Case placement = this.historiquePlacements
+				.get(this.historiquePlacements.size() - 1);
+		int row = placement.getRow();
+		int col = placement.getCol();
+		int ancValeur = placement.getAncValeur();
+		this.grille[row][col] = ancValeur;
+		this.historiquePlacements.remove(this.historiquePlacements.size() - 1);
+		afficher(grille);
 	}
 
 }

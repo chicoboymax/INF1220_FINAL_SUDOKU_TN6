@@ -149,6 +149,13 @@ public class Menu extends JMenuBar implements ActionListener {
 				ecriturepressepapier(map.getSudoku().getGrille());
 			}
 		}
+		
+		// Annuler placement
+		
+		else if (evt.getSource() == m661){
+			map.getSudoku().annulerPlacement();
+		}
+		
 		// IMPRESSION
 		else if (evt.getSource() == m442) {
 			JFrame frame = new JFrame("Aper�u avant Impression");
