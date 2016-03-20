@@ -48,13 +48,13 @@ public class Ecouteur {
 				carre.setBg(map.getNbdispo(i - 1));
 				carre.repaint();
 				// INSCRIRE CHIFFRE DANS MATRICE
-				map.getSudoku().setGrille(carre.getI(), carre.getE(), i);
+				map.getSudoku().setPlacement(carre.getI(), carre.getE(), i);
 				map.getSudoku().afficher(map.getSudoku().getGrille());
 			} else {
 				carre.setBg(new ImageIcon("images/nonselec.png").getImage());
 				carre.repaint();
 				// INSCRIRE CHIFFRE DANS MATRICE
-				map.getSudoku().setGrille(carre.getI(), carre.getE(), i);
+				map.getSudoku().setPlacement(carre.getI(), carre.getE(), i);
 				map.getSudoku().afficher(map.getSudoku().getGrille());
 			}
 		}

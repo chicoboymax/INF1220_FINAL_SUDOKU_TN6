@@ -1,10 +1,9 @@
 import java.util.ArrayList;
 
 /*
- * modifi� le 10 d�c. 2009
+ * Modifié le 20 Mars 2016 par Maxime Drouin
  *
- * TODO Pour changer le mod�le de ce fichier g�n�r�, allez � :
- * Fen�tre - Pr�f�rences - Java - Style de code - Mod�les de code
+ *
  */
 
 public class Sudoku extends Thread {
@@ -15,14 +14,6 @@ public class Sudoku extends Thread {
 	int complexite = 0;
 	int[][] tableaufinal;
 	private ArrayList<Case> historiquePlacements = new ArrayList<>();
-
-	public ArrayList<Case> getHistoriquePlacements() {
-		return historiquePlacements;
-	}
-
-	public void setHistoriquePlacements(ArrayList<Case> historiquePlacements) {
-		this.historiquePlacements = historiquePlacements;
-	}
 
 	public Sudoku(int n) {
 		this.n = n;
@@ -126,7 +117,7 @@ public class Sudoku extends Thread {
 							int prochainchiffre = chiffre + 1;
 							nextcolonne = prochaincolonne(prochainchiffre, tab);// chiffre
 							// Il faut sauter le chiffre ou la grille est
-							// completement plac�e
+							// completement placée
 							while (prochainchiffre + 1 <= n
 									&& nextcolonne == -1) {
 								prochainchiffre++;
@@ -147,7 +138,7 @@ public class Sudoku extends Thread {
 
 			}
 		}
-		// }
+	
 
 	}
 
@@ -206,7 +197,6 @@ public class Sudoku extends Thread {
 
 	private int[] quadran(int ligne, int colonne) {
 		int[] quadran = new int[4];
-		// [0]lignedebut [1]colonnedebut [2]lignefin [3]colonnefin
 		switch (ligne) {
 		case 0:
 		case 1:
@@ -315,7 +305,7 @@ public class Sudoku extends Thread {
 		// ATTENTION IL Y A EGALITE DANS LES BOUCLES
 		for (int ligne = lignedebut; ligne <= lignefin; ligne++) {
 			for (int colonne = colonnedebut; colonne <= colonnefin; colonne++) {
-				// MEME CHIFFRE DANS LE QUADRAN DONC FAUx
+				// MEME CHIFFRE DANS LE QUADRAN DONC FAUX
 				if (tab[ligne][colonne] == chiffre) {
 					test = false;
 					break;
@@ -394,13 +384,23 @@ public class Sudoku extends Thread {
 		return grille;
 	}
 
-	/**
-	 * @param grille
-	 *            grille � d�finir.
-	 */
 	public void setGrille(int i, int e, int donnee) {
+		grille[i][e] = donnee;
+	}
+	
+	/*********************************************************************************/
+	/**
+	 * @param i - La ligne du placement
+	 * @param e - La colonne du placement
+	 * @param donnee - La nouvelle valeur du placement
+	 */
+	/*********************************************************************************/
+	public void setPlacement(int i, int e, int donnee) {
+		// Créer une instance de Case à partir des paramètres
 		Case placement = new Case(i, e, this.grille[i][e], donnee);
+		// Ajoute le placement dans l'ArrayList 
 		this.historiquePlacements.add(placement);
+		// Change la valeur de la grille pour la nouvelle valeur.
 		grille[i][e] = donnee;
 	}
 
@@ -490,7 +490,7 @@ public class Sudoku extends Thread {
 
 	/**
 	 * @param grille
-	 *            grille � d�finir.
+	 *            grille à définir.
 	 */
 	public void setGrille(int[][] grille) {
 
@@ -503,7 +503,23 @@ public class Sudoku extends Thread {
 	public int[][] getTableaufinal() {
 		return tableaufinal;
 	}
+	/*********************************************************************************/
+	/**
+	 * @return Renvoie historiquePlacements.
+	 */
+	/*********************************************************************************/
+	public ArrayList<Case> getHistoriquePlacements() {
+		return historiquePlacements;
+	}
 
-	
+	/*********************************************************************************/
+	/**
+	 * @param grille
+	 *            ArrayList de Cases historiquePlacements
+	 */
+	/*********************************************************************************/
+	public void setHistoriquePlacements(ArrayList<Case> historiquePlacements) {
+		this.historiquePlacements = historiquePlacements;
+	}
 
 }

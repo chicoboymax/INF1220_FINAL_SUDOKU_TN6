@@ -22,6 +22,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import org.w3c.dom.events.EventException;
+
 public class Fond extends JPanel {
 	Image bg;
 	Interface map;
@@ -326,24 +328,26 @@ public class Fond extends JPanel {
 	 */
 	/********************************************************************************/
 	protected void annulerPlacement() {
+
 		ArrayList<Case> al = map.getSudoku().getHistoriquePlacements();
-		if (al != null && al.size() >= 0) {
-			Case placement = al
-					.get(al.size() - 1);
+		if (al != null && al.size() > 0) {
+			Case placement = al.get(al.size() - 1);
 			int row = placement.getRow();
 			int col = placement.getCol();
 			int ancValeur = placement.getAncValeur();
 			map.getSudoku().getGrille()[row][col] = ancValeur;
-			al
-					.remove(al.size() - 1);
+			al.remove(al.size() - 1);
 			map.getSudoku().afficher(map.getSudoku().getGrille());
 			this.tableaudigits[row][col].setBg(new ImageIcon(
 					"images/nonselec.png").getImage());
 			this.tableaudigits[row][col].nondispo = false;
 			this.tableaudigits[row][col].setCoche(false);
+			// Met à jour l'interface graphique
 			repaint();
-			map.repaint();
-
+		} else {
+			JOptionPane.showMessageDialog(null,
+					"Il n'y a aucun placement à annuler");
 		}
+
 	}
 }
