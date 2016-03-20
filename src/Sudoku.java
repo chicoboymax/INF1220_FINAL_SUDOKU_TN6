@@ -529,6 +529,7 @@ public class Sudoku extends Thread {
 		for (int i = 0; i < grille[ligne].length; i++) {
 			if (grille[ligne][i] == valeur) {
 				surLigne = true;
+				ligne +=1;
 				JOptionPane.showMessageDialog(null,
 						"Erreur, la grille comporte déjà la valeur " + valeur
 								+ " sur la ligne " + ligne);
@@ -555,6 +556,7 @@ public class Sudoku extends Thread {
 		for (int i = 0; i < grille[colonne].length; i++) {
 			if (grille[i][colonne] == valeur) {
 				surColonne = true;
+				colonne+=1;
 				JOptionPane.showMessageDialog(null,
 						"Erreur, la grille comporte déjà la valeur " + valeur
 								+ " sur la colonne " + colonne);
@@ -593,6 +595,8 @@ public class Sudoku extends Thread {
 			for (int y = y1; y <= y2; y++) {
 				if (grille[x][y] == valeur) {
 					dansLeBloc = true;
+					ligne+=1;
+					colonne+=1;
 					JOptionPane.showMessageDialog(null,
 							"Erreur, la grille comporte déjà la valeur "
 									+ valeur
