@@ -104,17 +104,17 @@ public class Menu extends JMenuBar implements ActionListener {
 		}
 
 		else if (evt.getSource() == m222) {
-			map.supanel.vidergrille();
+			map.supanel.viderGrille();
 			// map.supanel.cherchernouvellesgrilles();
 		}
 
 		else if (evt.getSource() == m331) {
-			if (map.supanel.solutionnergrille()) {
+			if (map.supanel.solutionnerGrille()) {
 				m331.setEnabled(false);
 				m332.setEnabled(true);
 			}
 		} else if (evt.getSource() == m332) {
-			map.supanel.cachersolution();
+			map.supanel.cacherSolution();
 			m331.setEnabled(true);
 			m332.setEnabled(false);
 		}
@@ -140,14 +140,14 @@ public class Menu extends JMenuBar implements ActionListener {
 			frame.setSize(new Dimension(305, 640));
 			Fond supanelreponse1 = new Fond(map.map, map);
 			Fond supanelreponse2 = new Fond(map.map, map);
-			supanelreponse1.impressionapartirdetableau(map.sudoku.grille);
-			if (map.supanel.solutionnergrille()) {
+			supanelreponse1.impressionAPartirDeTableau(map.sudoku.grille);
+			if (map.supanel.solutionnerGrille()) {
 				System.out.println("GRILLE");
 				map.sudoku.afficher(map.sudoku.grille);
 				System.out.println("REPONSE");
-				map.sudoku.afficher(map.sudoku.tableaufinal);
+				map.sudoku.afficher(map.sudoku.tableauFinal);
 				supanelreponse2
-						.impressionapartirdetableau(map.sudoku.tableaufinal);
+						.impressionAPartirDeTableau(map.sudoku.tableauFinal);
 				// CONTENTPANEL
 				JPanel contentPanel = (JPanel) frame.getContentPane();
 				contentPanel.setLayout(null);
@@ -163,7 +163,7 @@ public class Menu extends JMenuBar implements ActionListener {
 
 				MPanelPrinter mp = new MPanelPrinter(contentPanel);
 				mp.print();
-				map.supanel.cachersolution();
+				map.supanel.cacherSolution();
 				frame.dispose();
 			}
 

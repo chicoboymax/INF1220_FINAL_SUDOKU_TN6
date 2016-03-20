@@ -15,7 +15,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 
 public class Carre extends JComponent {
-	boolean nondispo = false;
+	boolean nonDispo = false;
 	int positionx = 0;
 	int positiony = 0;
 	int longeur = 0;

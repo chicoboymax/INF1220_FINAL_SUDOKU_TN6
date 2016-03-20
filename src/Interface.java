@@ -22,13 +22,13 @@ public class Interface extends JFrame {
 	Menu menu;
 
 	// Tableaux pour les chiffres
-	Image[] nbplaces = new Image[9];
-	Image[] nbdispo = new Image[9];
+	Image[] nbPlaces = new Image[9];
+	Image[] nbDispo = new Image[9];
 
 	// IMAGE JPANEL
 	Image map = new ImageIcon("images/sudoku.png").getImage();
 	Image digi = new ImageIcon("images/digits.gif").getImage();
-	BufferedImage mapmodifiable = toBufferedImage(map);
+	BufferedImage mapModifiable = toBufferedImage(map);
 	BufferedImage digits = toBufferedImage(digi);
 	int carre = 30;
 
@@ -42,16 +42,16 @@ public class Interface extends JFrame {
 		sudoku.setPriority(Thread.MAX_PRIORITY);
 		sudoku.start();
 		initializeComponent();
-		creationdigits();
+		creationDigits();
 		this.setVisible(true);
 	}
 
-	public void creationdigits() {
+	public void creationDigits() {
 
 		int indice = 0;
 		for (int i = 0; i <= digits.getHeight() - (carre - 1); i += (carre - 1)) {
-			nbplaces[indice] = digits.getSubimage(29, i, carre - 1, carre - 1);
-			nbdispo[indice] = digits.getSubimage(0, i, carre - 1, carre - 1);
+			nbPlaces[indice] = digits.getSubimage(29, i, carre - 1, carre - 1);
+			nbDispo[indice] = digits.getSubimage(0, i, carre - 1, carre - 1);
 			indice++;
 		}
 
@@ -132,14 +132,14 @@ public class Interface extends JFrame {
 	}
 
 	public BufferedImage toBufferedImage(Image image) {
-		/** On test si l'image n'est pas d�ja une instance de BufferedImage */
+		/** On test si l'image n'est pas déja une instance de BufferedImage */
 		if (image instanceof BufferedImage) {
 			/** cool, rien � faire */
 			return ((BufferedImage) image);
 		} else {
-			/** On s'assure que l'image est compl�tement charg�e */
+			/** On s'assure que l'image est complètement chargée */
 			image = new ImageIcon(image).getImage();
-			/** On cr�e la nouvelle image */
+			/** On créer la nouvelle image */
 			BufferedImage bufferedImage = new BufferedImage(
 					image.getWidth(null), image.getHeight(null),
 					BufferedImage.TYPE_INT_RGB);
@@ -151,7 +151,7 @@ public class Interface extends JFrame {
 	}
 
 	public static void main(String[] args) {
-		window fenetreintro = new window(440, 400, 1);
+		window fenetreIntro = new window(440, 400, 1);
 		// INTERFACE GRAPHIQUE
 		Interface graphique = new Interface();
 
@@ -166,12 +166,12 @@ public class Interface extends JFrame {
 		return supanel;
 	}
 
-	public Image getNbdispo(int i) {
-		return nbdispo[i];
+	public Image getNbDispo(int i) {
+		return nbDispo[i];
 	}
 
-	public Image getNbplaces(int i) {
-		return nbplaces[i];
+	public Image getNbPlaces(int i) {
+		return nbPlaces[i];
 	}
 
 	public Sudoku getSudoku() {

@@ -27,7 +27,7 @@ public class Ecouteur {
 				y = arg0.getY();
 				if (map.getSupanel().getComponentAt(x, y) instanceof Carre) {
 					temporaire = (Carre) map.getSupanel().getComponentAt(x, y);
-					if (!temporaire.nondispo) {
+					if (!temporaire.nonDispo) {
 						if (carre != null) {
 							carre.setCoche(false);
 							carre.repaint();
@@ -45,25 +45,25 @@ public class Ecouteur {
 	public void chiffre(int i) {
 		if (carre != null) {
 			if (i != 0) {
-				carre.setBg(map.getNbdispo(i - 1));
+				carre.setBg(map.getNbDispo(i - 1));
 				carre.repaint();
 				// INSCRIRE CHIFFRE DANS MATRICE
-				map.getSudoku().setPlacement(carre.getI(), carre.getE(), i);
+				map.supanel.setPlacement(carre.getI(), carre.getE(), i);
 				map.getSudoku().afficher(map.getSudoku().getGrille());
 			} else {
 				carre.setBg(new ImageIcon("images/nonselec.png").getImage());
 				carre.repaint();
 				// INSCRIRE CHIFFRE DANS MATRICE
-				map.getSudoku().setPlacement(carre.getI(), carre.getE(), i);
+				map.supanel.setPlacement(carre.getI(), carre.getE(), i);
 				map.getSudoku().afficher(map.getSudoku().getGrille());
 			}
 		}
 		// TEST SI LA GRILLE EST REMPLIE
 		// si oui, on essaye de resoudre la grille et si elle est resoluble on
 		// affiche un message
-		if (map.getSudoku().grilleremplie()) {
+		if (map.getSudoku().grilleRemplie()) {
 			System.out.println("REMPLIE");
-			if (map.sudoku.testervalidite()) {
+			if (map.sudoku.testerValidite()) {
 				JOptionPane d = new JOptionPane();
 				d.showMessageDialog(map, "Bon travail !",
 						"La grille est correct",

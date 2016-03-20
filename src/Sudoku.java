@@ -1,5 +1,8 @@
 import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+
 /*
  * Modifié le 20 Mars 2016 par Maxime Drouin
  *
@@ -12,7 +15,7 @@ public class Sudoku extends Thread {
 	int n;
 	int placements = 0;
 	int complexite = 0;
-	int[][] tableaufinal;
+	int[][] tableauFinal;
 	private ArrayList<Case> historiquePlacements = new ArrayList<>();
 
 	public Sudoku(int n) {
@@ -49,22 +52,22 @@ public class Sudoku extends Thread {
 			for (int e = 0; e < n; e += 3) {
 
 				int[] quadran = quadran(i, e);
-				int lignedebut = quadran[0];
-				int colonnedebut = quadran[1];
+				int ligneDebut = quadran[0];
+				int colonneDebut = quadran[1];
 
 				int compte = 0;
 				while (compte != 5) {
 					int chiffre = random(1, 9);
-					int ligne = random(lignedebut, 3);
-					int colonne = random(colonnedebut, 3);
+					int ligne = random(ligneDebut, 3);
+					int colonne = random(colonneDebut, 3);
 
 					// MAUVAIS CHOIX
-					while (!cherchequadran(ligne, colonne, grille, chiffre)
-							|| !cherchehb(ligne, colonne, grille, chiffre)
-							|| !cherchedg(ligne, colonne, grille, chiffre)) {
+					while (!chercheQuadran(ligne, colonne, grille, chiffre)
+							|| !chercherHB(ligne, colonne, grille, chiffre)
+							|| !chercherDG(ligne, colonne, grille, chiffre)) {
 						chiffre = random(1, 9);
-						ligne = random(lignedebut, 3);
-						colonne = random(colonnedebut, 3);
+						ligne = random(ligneDebut, 3);
+						colonne = random(colonneDebut, 3);
 					}
 					grille[ligne][colonne] = chiffre;
 					compte++;
@@ -84,7 +87,7 @@ public class Sudoku extends Thread {
 
 		// on Commence la routine par 1
 		int chiffre = 1;
-		int colonne = prochaincolonne(chiffre, grille);
+		int colonne = prochaineColonne(chiffre, grille);
 		while (colonne == -1) {
 			chiffre++;
 		}
@@ -105,9 +108,9 @@ public class Sudoku extends Thread {
 					int[][] tab = clonage(tableau);
 					tab[i][colonne] = chiffre;// chiffre
 
-					int nextcolonne = prochaincolonne(chiffre, tab);// chiffre
-					if (nextcolonne != -1) {
-						placement(nextcolonne, tab, chiffre);
+					int prochainneColonne = prochaineColonne(chiffre, tab);// chiffre
+					if (prochainneColonne != -1) {
+						placement(prochainneColonne, tab, chiffre);
 
 					}
 
@@ -115,22 +118,24 @@ public class Sudoku extends Thread {
 						// ON EST SUR LA DERNIERE COLONNE POSSIBLE
 						if (chiffre + 1 <= n) {
 							int prochainchiffre = chiffre + 1;
-							nextcolonne = prochaincolonne(prochainchiffre, tab);// chiffre
+							prochainneColonne = prochaineColonne(
+									prochainchiffre, tab);// chiffre
 							// Il faut sauter le chiffre ou la grille est
 							// completement placée
 							while (prochainchiffre + 1 <= n
-									&& nextcolonne == -1) {
+									&& prochainneColonne == -1) {
 								prochainchiffre++;
-								nextcolonne = prochaincolonne(prochainchiffre,
-										tab);
+								prochainneColonne = prochaineColonne(
+										prochainchiffre, tab);
 							}
-							if (nextcolonne != -1) {
-								placement(nextcolonne, tab, prochainchiffre);
+							if (prochainneColonne != -1) {
+								placement(prochainneColonne, tab,
+										prochainchiffre);
 							}
 
 						} else {
 							placements++;
-							tableaufinal = tab;
+							tableauFinal = tab;
 						}
 					}
 
@@ -138,21 +143,20 @@ public class Sudoku extends Thread {
 
 			}
 		}
-	
 
 	}
 
-	private int nextchiffre() {
+	private int prochainChiffre() {
 		int temp = -1;
 
 		return temp;
 	}
 
-	private int prochaincolonne(int chiffre, int[][] tab) {
+	private int prochaineColonne(int chiffre, int[][] tab) {
 		int temp = -1;
 
 		for (int i = 0; i < n; i++) {
-			if (cherchehb(0, i, tab, chiffre)) {
+			if (chercherHB(0, i, tab, chiffre)) {
 				temp = i;
 				break;
 			}
@@ -174,8 +178,8 @@ public class Sudoku extends Thread {
 	public boolean libre(int ligne, int colonne, int[][] tab, int chiffre) {
 		boolean libre = false;
 
-		if (cherchedg(ligne, colonne, tab, chiffre)
-				&& cherchequadran(ligne, colonne, tab, chiffre)) {
+		if (chercherDG(ligne, colonne, tab, chiffre)
+				&& chercheQuadran(ligne, colonne, tab, chiffre)) {
 			libre = true;
 
 		}
@@ -184,11 +188,11 @@ public class Sudoku extends Thread {
 
 	}
 
-	private boolean cherchequadran(int ligne, int colonne, int[][] tab,
+	private boolean chercheQuadran(int ligne, int colonne, int[][] tab,
 			int chiffre) {
 		int[] quadran = quadran(ligne, colonne);
 
-		if (chercherchiffrequadran(chiffre, quadran, tab)) {
+		if (chercherChiffreQuadran(chiffre, quadran, tab)) {
 			return true;
 		} else {
 			return false;
@@ -294,17 +298,17 @@ public class Sudoku extends Thread {
 		return quadran;
 	}
 
-	public boolean chercherchiffrequadran(int chiffre, int[] quadran,
+	public boolean chercherChiffreQuadran(int chiffre, int[] quadran,
 			int[][] tab) {
 		boolean test = true;
 
-		int lignedebut = quadran[0];
-		int colonnedebut = quadran[1];
-		int lignefin = quadran[2];
-		int colonnefin = quadran[3];
+		int ligneDebut = quadran[0];
+		int colonneDebut = quadran[1];
+		int ligneFin = quadran[2];
+		int colonneFin = quadran[3];
 		// ATTENTION IL Y A EGALITE DANS LES BOUCLES
-		for (int ligne = lignedebut; ligne <= lignefin; ligne++) {
-			for (int colonne = colonnedebut; colonne <= colonnefin; colonne++) {
+		for (int ligne = ligneDebut; ligne <= ligneFin; ligne++) {
+			for (int colonne = colonneDebut; colonne <= colonneFin; colonne++) {
 				// MEME CHIFFRE DANS LE QUADRAN DONC FAUX
 				if (tab[ligne][colonne] == chiffre) {
 					test = false;
@@ -316,7 +320,7 @@ public class Sudoku extends Thread {
 		return test;
 	}
 
-	private boolean cherchedg(int ligne, int colonne, int[][] tab, int chiffre) {
+	private boolean chercherDG(int ligne, int colonne, int[][] tab, int chiffre) {
 		boolean test = true;
 
 		for (int index = 0; index < n; index++) {
@@ -338,7 +342,7 @@ public class Sudoku extends Thread {
 		return test;
 	}
 
-	private boolean cherchehb(int ligne, int colonne, int[][] tab, int chiffre) {
+	private boolean chercherHB(int ligne, int colonne, int[][] tab, int chiffre) {
 		boolean test = true;
 
 		for (int index = 0; index < n; index++) {
@@ -387,22 +391,6 @@ public class Sudoku extends Thread {
 	public void setGrille(int i, int e, int donnee) {
 		grille[i][e] = donnee;
 	}
-	
-	/*********************************************************************************/
-	/**
-	 * @param i - La ligne du placement
-	 * @param e - La colonne du placement
-	 * @param donnee - La nouvelle valeur du placement
-	 */
-	/*********************************************************************************/
-	public void setPlacement(int i, int e, int donnee) {
-		// Créer une instance de Case à partir des paramètres
-		Case placement = new Case(i, e, this.grille[i][e], donnee);
-		// Ajoute le placement dans l'ArrayList 
-		this.historiquePlacements.add(placement);
-		// Change la valeur de la grille pour la nouvelle valeur.
-		grille[i][e] = donnee;
-	}
 
 	/**
 	 * @return Renvoie n.
@@ -413,7 +401,7 @@ public class Sudoku extends Thread {
 
 	/**
 	 * @param n
-	 *            n � d�finir.
+	 *            
 	 */
 	public void setN(int n) {
 		this.n = n;
@@ -428,7 +416,7 @@ public class Sudoku extends Thread {
 
 	/**
 	 * @param placements
-	 *            placements � d�finir.
+	 *            placements a définir.
 	 */
 	public void setPlacements(int placements) {
 		this.placements = placements;
@@ -436,13 +424,13 @@ public class Sudoku extends Thread {
 
 	/**
 	 * @param tableaufinal
-	 *            tableaufinal � d�finir.
+	 *            tableaufinal à définir.
 	 */
 	public void setTableaufinal(int[][] tableaufinal) {
-		this.tableaufinal = tableaufinal;
+		this.tableauFinal = tableaufinal;
 	}
 
-	public boolean grilleremplie() {
+	public boolean grilleRemplie() {
 		boolean solution = true;
 		if (grille != null) {
 			for (int i = 0; i < grille.length; i++) {
@@ -459,10 +447,10 @@ public class Sudoku extends Thread {
 		return solution;
 	}
 
-	public boolean testervalidite() {
+	public boolean testerValidite() {
 		boolean solution = true;
 
-		int nbelements = 0;
+		int nbElements = 0;
 		for (int i = 0; i < grille.length; i++) {
 			// ON PREND LE PREMIER ELEMENT DE CHAQUE LIGNE POUR ETRE TESTER
 			// AVEC LES AUTRES ELEMENTS DE LA MEME LIGNE
@@ -475,14 +463,14 @@ public class Sudoku extends Thread {
 					break;
 				}
 				if (grille[i][e] != 0) {
-					nbelements++;
+					nbElements++;
 				}
 
 				max = grille[i][e];
 			}
 		}
 		// LE NB ELEMENTS NON NULS DOIT ETRE PLUS GRAND QUE 15
-		if (solution && nbelements < 16) {
+		if (solution && nbElements < 16) {
 			solution = false;
 		}
 		return solution;
@@ -501,8 +489,9 @@ public class Sudoku extends Thread {
 	 * @return Renvoie tableaufinal.
 	 */
 	public int[][] getTableaufinal() {
-		return tableaufinal;
+		return tableauFinal;
 	}
+
 	/*********************************************************************************/
 	/**
 	 * @return Renvoie historiquePlacements.
@@ -520,6 +509,127 @@ public class Sudoku extends Thread {
 	/*********************************************************************************/
 	public void setHistoriquePlacements(ArrayList<Case> historiquePlacements) {
 		this.historiquePlacements = historiquePlacements;
+	}
+
+	/*********************************************************************************/
+	/**
+	 * Vérifie si la valeur est déjà présente sur la ligne de la grille.
+	 * 
+	 * @param valeur
+	 *            - La valeur que l'on veut vérifier.
+	 * 
+	 * @param ligne
+	 *            - La ligne sur laquelle on veut effectuer la vérification.
+	 * 
+	 * @return boolean - Return true si la valeur est sur la ligne.
+	 */
+	/*********************************************************************************/
+	public boolean estSurLigne(int valeur, int ligne) {
+		boolean surLigne = false;
+		for (int i = 0; i < grille[ligne].length; i++) {
+			if (grille[ligne][i] == valeur) {
+				surLigne = true;
+				JOptionPane.showMessageDialog(null,
+						"Erreur, la grille comporte déjà la valeur " + valeur
+								+ " sur la ligne " + ligne);
+			}
+		}
+		return surLigne;
+	}
+
+	/*********************************************************************************/
+	/**
+	 * Vérifie si la valeur est déjà présente sur la colonne de la grille.
+	 * 
+	 * @param valeur
+	 *            - La valeur que l'on veut vérifier.
+	 * 
+	 * @param colonne
+	 *            - La colonne sur laquelle on veut effectuer la vérification.
+	 * 
+	 * @return boolean - Return true si la valeur est sur la colonne.
+	 */
+	/*********************************************************************************/
+	public boolean estSurColonne(int valeur, int colonne) {
+		boolean surColonne = false;
+		for (int i = 0; i < grille[colonne].length; i++) {
+			if (grille[i][colonne] == valeur) {
+				surColonne = true;
+				JOptionPane.showMessageDialog(null,
+						"Erreur, la grille comporte déjà la valeur " + valeur
+								+ " sur la colonne " + colonne);
+			}
+		}
+		return surColonne;
+	}
+
+	/*********************************************************************************/
+	/**
+	 * Vérifie si la valeur est déjà présente dans le bloc de la grille.
+	 * 
+	 * @param valeur
+	 *            - La valeur que l'on veut vérifier.
+	 * 
+	 * @param ligne
+	 *            - La ligne sur laquelle est située la case.
+	 * 
+	 * @param colonne
+	 *            - La colonne sur laquelle est située la case.
+	 * 
+	 * @return boolean - Return true si la valeur est sur la ligne.
+	 */
+	/*********************************************************************************/
+	public boolean estDansLeBloc(int valeur, int ligne, int colonne) {
+		boolean dansLeBloc = false;
+		// Détermine le début de la région en divisant les valeurs des lignes et
+		// colonnes par 3 et ensuite en les multipliants par 3.
+		int x1 = 3 * (ligne / 3);
+		int y1 = 3 * (colonne / 3);
+		// Détermine la fin des régions en ajoutant 2 aux valeurs obtenues.
+		int x2 = x1 + 2;
+		int y2 = y1 + 2;
+		// Vérifier si la valeur est dans la région.
+		for (int x = x1; x <= x2; x++) {
+			for (int y = y1; y <= y2; y++) {
+				if (grille[x][y] == valeur) {
+					dansLeBloc = true;
+					JOptionPane.showMessageDialog(null,
+							"Erreur, la grille comporte déjà la valeur "
+									+ valeur
+									+ " dans le bloc représentant la case ("
+									+ ligne + "," + colonne + ").");
+				}
+			}
+
+		}
+		return dansLeBloc;
+	}
+
+	/*********************************************************************************/
+	/**
+	 * Permet de valider le placement en appellant toutes les méthodes de
+	 * vérification.
+	 * 
+	 * @param valeur
+	 *            - La valeur à vérifier.
+	 * 
+	 * @param ligne
+	 *            - La ligne sur laquelle est située la case.
+	 * 
+	 * @param colonne
+	 *            - La colonne sur laquelle est située la case.
+	 * 
+	 * @return boolean - Retourne false si le placement n'est pas valide.
+	 */
+	/*********************************************************************************/
+	public boolean validerPlacement(int valeur, int ligne, int colonne) {
+		boolean placementValide = true;
+		// Si une des trois validation est vrai le placement n'est pas valide
+		if (estDansLeBloc(valeur, ligne, colonne) || estSurLigne(valeur, ligne)
+				|| estSurColonne(valeur, colonne)) {
+			placementValide = false;
+		}
+		return placementValide;
 	}
 
 }
