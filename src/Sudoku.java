@@ -493,7 +493,7 @@ public class Sudoku extends Thread {
 	 *            grille � d�finir.
 	 */
 	public void setGrille(int[][] grille) {
-		
+
 		this.grille = grille;
 	}
 
@@ -503,25 +503,7 @@ public class Sudoku extends Thread {
 	public int[][] getTableaufinal() {
 		return tableaufinal;
 	}
-	
-		
 
-	/*********************************************************************************/
-	/*
-	 * Méthode utilisée pour annuler le dernier placement Protected, car
-	 * utilisée seulement par les sous-classes. Dans Sudoku.java, car le
-	 * fonctionnement est commun pour tous les types de Sudoku
-	 */
-	/********************************************************************************/
-	protected void annulerPlacement() {
-		Case placement = this.historiquePlacements
-				.get(this.historiquePlacements.size() - 1);
-		int row = placement.getRow();
-		int col = placement.getCol();
-		int ancValeur = placement.getAncValeur();
-		this.grille[row][col] = ancValeur;
-		this.historiquePlacements.remove(this.historiquePlacements.size() - 1);
-		afficher(grille);
-	}
+	
 
 }

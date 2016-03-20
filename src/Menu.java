@@ -8,7 +8,9 @@
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -24,29 +26,9 @@ import javax.swing.JPanel;
 public class Menu extends JMenuBar implements ActionListener {
 	Interface map;
 
-	JMenu m1;
-	JMenu m2;
-	JMenu m3;
-	JMenu m4;
-	JMenu m5;
-	JMenu m6;
-	
-	JMenuItem m12;
-	JMenuItem m121;
-	JMenuItem m122;
-	JMenuItem m123;
+	JMenu m1, m2, m3, m4, m5, m6;
 
-	JMenuItem m222;
-
-	JMenuItem m331;
-	JMenuItem m332;
-
-	JMenuItem m441;
-	JMenuItem m442;
-	
-	JMenuItem m551;
-	
-	JMenuItem m661;
+	JMenuItem m12, m121, m122, m123, m222, m331, m332, m441, m442, m551, m661;
 
 	public Menu(Interface map) {
 		super();
@@ -67,7 +49,6 @@ public class Menu extends JMenuBar implements ActionListener {
 		m123.addActionListener(this);
 		m12.addActionListener(this);
 
-		
 		m222 = new JMenuItem("Vider Grille");
 		m222.addActionListener(this);
 		m1.add(m222);
@@ -86,11 +67,11 @@ public class Menu extends JMenuBar implements ActionListener {
 		m442 = new JMenuItem("Imprimer Grille+Solution");
 		m442.addActionListener(this);
 		m4.add(m442);
-		
+
 		m551 = new JMenuItem("Consulter les règles du jeu SUDOKU");
 		m551.addActionListener(this);
 		m5.add(m551);
-		
+
 		m661 = new JMenuItem("Annuler Placement");
 		m661.addActionListener(this);
 		m6.add(m661);
@@ -107,7 +88,7 @@ public class Menu extends JMenuBar implements ActionListener {
 		this.add(m4);
 		this.add(m6);
 		this.add(m5);
-		
+
 		// PERMET DE DESACTIVER CERTAINS ELEMENTS PAR DEFAUT
 
 	}
@@ -149,16 +130,16 @@ public class Menu extends JMenuBar implements ActionListener {
 				ecriturepressepapier(map.getSudoku().getGrille());
 			}
 		}
-		
+
 		// Annuler placement
-		
-		else if (evt.getSource() == m661){
-			map.getSudoku().annulerPlacement();
+
+		else if (evt.getSource() == m661) {
+			map.supanel.annulerPlacement();
 		}
-		
+
 		// IMPRESSION
 		else if (evt.getSource() == m442) {
-			JFrame frame = new JFrame("Aper�u avant Impression");
+			JFrame frame = new JFrame("Aperçu avant Impression");
 			frame.setSize(new Dimension(305, 640));
 			Fond supanelreponse1 = new Fond(map.map, map);
 			Fond supanelreponse2 = new Fond(map.map, map);
@@ -190,7 +171,7 @@ public class Menu extends JMenuBar implements ActionListener {
 			}
 
 		}
-		
+
 		else if (evt.getSource() == m551) {
 			window fenetreRegles = new window(440, 400, 0);
 		}
