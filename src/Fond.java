@@ -350,7 +350,8 @@ public class Fond extends JPanel {
 	/********************************************************************************/
 	protected void annulerPlacement() {
 		ArrayList<Case> al = map.getSudoku().getHistoriquePlacements();
-		if (al != null && al.size() > 0) {
+		// Vérifie s'il y a un placement à annuler
+		if (al.size() > 0) {
 			Case placement = al.get(al.size() - 1);
 			int row = placement.getRow();
 			int col = placement.getCol();
@@ -362,7 +363,6 @@ public class Fond extends JPanel {
 					"images/nonselec.png").getImage());
 			this.tableauDigits[row][col].nonDispo = false;
 			this.tableauDigits[row][col].setCoche(false);
-			// Met à jour l'interface graphique
 			map.repaint();
 		} else {
 			JOptionPane.showMessageDialog(null,

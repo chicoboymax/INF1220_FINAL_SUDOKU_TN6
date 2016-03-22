@@ -146,11 +146,7 @@ public class Sudoku extends Thread {
 
 	}
 
-	private int prochainChiffre() {
-		int temp = -1;
-
-		return temp;
-	}
+	
 
 	private int prochaineColonne(int chiffre, int[][] tab) {
 		int temp = -1;
