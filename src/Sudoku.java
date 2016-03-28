@@ -1,22 +1,22 @@
 import java.util.ArrayList;
 
-import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /*
- * Modifié le 20 Mars 2016 par Maxime Drouin
+ * Modifié le 28 Mars 2016 par Maxime Drouin
  *
  *
  */
 
 public class Sudoku extends Thread {
 
-	int grille[][];
+	int[][] grille;
 	int n;
 	int placements = 0;
 	int complexite = 0;
 	int[][] tableauFinal;
 	private ArrayList<Case> historiquePlacements = new ArrayList<>();
+	public static final String MESSAGE_ERREUR_VALEUR = "Erreur, la grille comporte déjà la valeur ";
 
 	public Sudoku(int n) {
 		this.n = n;
@@ -83,8 +83,6 @@ public class Sudoku extends Thread {
 	}
 
 	public void resolution() {
-		// afficher(grille);
-
 		// on Commence la routine par 1
 		int chiffre = 1;
 		int colonne = prochaineColonne(chiffre, grille);
@@ -527,7 +525,7 @@ public class Sudoku extends Thread {
 				surLigne = true;
 				ligne +=1;
 				JOptionPane.showMessageDialog(null,
-						"Erreur, la grille comporte déjà la valeur " + valeur
+						MESSAGE_ERREUR_VALEUR + valeur
 								+ " sur la ligne " + ligne);
 			}
 		}
@@ -554,7 +552,7 @@ public class Sudoku extends Thread {
 				surColonne = true;
 				colonne+=1;
 				JOptionPane.showMessageDialog(null,
-						"Erreur, la grille comporte déjà la valeur " + valeur
+						MESSAGE_ERREUR_VALEUR + valeur
 								+ " sur la colonne " + colonne);
 			}
 		}
@@ -594,7 +592,7 @@ public class Sudoku extends Thread {
 					ligne+=1;
 					colonne+=1;
 					JOptionPane.showMessageDialog(null,
-							"Erreur, la grille comporte déjà la valeur "
+							MESSAGE_ERREUR_VALEUR
 									+ valeur
 									+ " dans le bloc représentant la case ("
 									+ ligne + "," + colonne + ").");

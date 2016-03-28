@@ -1,9 +1,8 @@
 import java.awt.datatransfer.*;
 import java.awt.*;
-import java.io.*;
 
 public final class ModifPressPap implements ClipboardOwner {
-
+	@Override
 	public void lostOwnership(Clipboard cb, Transferable t) {
 		System.out.println("Contenu modifi�");
 	}

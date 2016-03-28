@@ -5,7 +5,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Christophe modifi� par colombiano Kedowide
+ * @author Christophe modifié par colombiano Kedowide
  * @version
  */
 public class Ecouteur {
@@ -21,6 +21,7 @@ public class Ecouteur {
 		super();
 		this.map = mapper;
 		map.getSupanel().addMouseListener(new MouseAdapter() {
+			@Override
 			public void mouseClicked(MouseEvent arg0) {
 
 				x = arg0.getX();
@@ -48,13 +49,13 @@ public class Ecouteur {
 				carre.setBg(map.getNbDispo(i - 1));
 				carre.repaint();
 				// INSCRIRE CHIFFRE DANS MATRICE
-				map.supanel.setPlacement(carre.getI(), carre.getE(), i);
+				map.supanel.fairePlacement(carre.getI(), carre.getE(), i);
 				map.getSudoku().afficher(map.getSudoku().getGrille());
 			} else {
 				carre.setBg(new ImageIcon("images/nonselec.png").getImage());
 				carre.repaint();
 				// INSCRIRE CHIFFRE DANS MATRICE
-				map.supanel.setPlacement(carre.getI(), carre.getE(), i);
+				map.supanel.fairePlacement(carre.getI(), carre.getE(), i);
 				map.getSudoku().afficher(map.getSudoku().getGrille());
 			}
 		}
@@ -64,8 +65,7 @@ public class Ecouteur {
 		if (map.getSudoku().grilleRemplie()) {
 			System.out.println("REMPLIE");
 			if (map.sudoku.testerValidite()) {
-				JOptionPane d = new JOptionPane();
-				d.showMessageDialog(map, "Bon travail !",
+				JOptionPane.showMessageDialog(map, "Bon travail !",
 						"La grille est correct",
 						JOptionPane.INFORMATION_MESSAGE);
 			}

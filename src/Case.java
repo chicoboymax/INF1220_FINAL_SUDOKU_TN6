@@ -1,22 +1,18 @@
 /**
- * Nom du programme : TN4 
+ * Nom du programme : TN6
  * Fichier : Case.java
  * 
  * @author Maxime Drouin
  */
 
 public class Case {
-	// Variable pour la ligne de la case dans le sudoku. private car getter et
-	// setter associé.
+	// Variable pour la ligne de la case dans le sudoku.
 	private int row;
-	// Variable pour la colonne de la case dans le sudoku. private car getter et
-	// setter associé.
+	// Variable pour la colonne de la case dans le sudoku.
 	private int col;
-	// Variable pour sauvegarder l'ancienne valeur de la case. private car
-	// getter et setter associé.
+	// Variable pour sauvegarder l'ancienne valeur de la case.
 	private int ancValeur;
-	// Variable pour indiquer la nouvelle valeur de la case. private car getter
-	// et setter associé.
+	// Variable pour indiquer la nouvelle valeur de la case.
 	private int nouValeur;
 
 	/*********************************************************************************/
@@ -42,8 +38,7 @@ public class Case {
 
 	/*********************************************************************************/
 	/*
-	 * Getter pour l'ancienne valeur de la case Public, car doit être accessible
-	 * au restant du programme
+	 * Getter pour l'ancienne valeur de la case.
 	 * 
 	 * @return ancValeur - L'ancienne valeur de la case avant ce placement
 	 */
@@ -54,8 +49,7 @@ public class Case {
 
 	/*********************************************************************************/
 	/*
-	 * Setter pour l'ancienne valeur de la case Public, car doit être accessible
-	 * au restant du programme
+	 * Setter pour l'ancienne valeur de la case.
 	 * 
 	 * @param ancValeur - L'ancienne valeur de la case avant ce placement
 	 */
@@ -66,8 +60,7 @@ public class Case {
 
 	/*********************************************************************************/
 	/*
-	 * Getter pour la nouvelle valeur de la case Public, car doit être
-	 * accessible au restant du programme
+	 * Getter pour la nouvelle valeur de la case.
 	 * 
 	 * @return nouValeur - La nouvelle valeur de cette case pour le placement
 	 */
@@ -78,8 +71,7 @@ public class Case {
 
 	/*********************************************************************************/
 	/*
-	 * Setter pour la nouvelle valeur de la case Public, car doit être
-	 * accessible au restant du programme
+	 * Setter pour la nouvelle valeur de la case.
 	 * 
 	 * @param nouValeur - La nouvelle valeur de cette case pour le placement
 	 */
@@ -90,8 +82,7 @@ public class Case {
 
 	/*********************************************************************************/
 	/*
-	 * Getter pour le choix de la ligne du Sudoku Public, car doit être
-	 * accessible au restant du programme
+	 * Getter pour le choix de la ligne du Sudoku.
 	 * 
 	 * @return row - La ligne dans laquelle se trouve la case
 	 */
@@ -102,8 +93,7 @@ public class Case {
 
 	/*********************************************************************************/
 	/*
-	 * Setter pour le choix de la ligne du Sudoku Public, car doit être
-	 * accessible au restant du programme
+	 * Setter pour le choix de la ligne du Sudoku.
 	 * 
 	 * @param row - La ligne dans laquelle se trouve la case
 	 */
@@ -114,8 +104,7 @@ public class Case {
 
 	/*********************************************************************************/
 	/*
-	 * Getter pour le choix de la colonne du Sudoku Public, car doit être
-	 * accessible au restant du programme
+	 * Getter pour le choix de la colonne du Sudoku.
 	 * 
 	 * @return col - La colonne dans laquelle se trouve la case
 	 */
@@ -126,8 +115,7 @@ public class Case {
 
 	/*********************************************************************************/
 	/*
-	 * Setter pour le choix de la colonne du Sudoku Public, car doit être
-	 * accessible au restant du programme
+	 * Setter pour le choix de la colonne du Sudoku.
 	 * 
 	 * @param col - La colonne dans laquelle se trouve la case
 	 */

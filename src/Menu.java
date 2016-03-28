@@ -1,8 +1,7 @@
 /*
- * Modifi�e par Colombiano kedowide
+ * Modifiée par Maxime Drouin
+ * le 28/03/16
  *
- * TODO Pour changer le mod�le de ce fichier g�n�r�, allez � :
- * Fen�tre - Pr�f�rences - Java - Style de code - Mod�les de code
  */
 
 import java.awt.Dimension;
@@ -14,12 +13,6 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
-/**
- * @author Administrateur
- *
- *         TODO Pour changer le mod�le de ce commentaire de type g�n�r�, allez �
- *         : Fen�tre - Pr�f�rences - Java - Style de code - Mod�les de code
- */
 public class Menu extends JMenuBar implements ActionListener {
 	Interface map;
 
@@ -94,10 +87,8 @@ public class Menu extends JMenuBar implements ActionListener {
 		// PERMET D'eviter une ecriture de chiffre par erreur
 		map.ecouteur.carre = null;
 		if (evt.getSource() == m121) {
-			// map.cherchernouvellesgrilles();
 			map.supanel.selection(3);
 		} else if (evt.getSource() == m122) {
-			// map.testersinouvellegrille();
 			map.supanel.selection(2);
 		} else if (evt.getSource() == m123) {
 			map.supanel.selection(1);
@@ -105,7 +96,6 @@ public class Menu extends JMenuBar implements ActionListener {
 
 		else if (evt.getSource() == m222) {
 			map.supanel.viderGrille();
-			// map.supanel.cherchernouvellesgrilles();
 		}
 
 		else if (evt.getSource() == m331) {

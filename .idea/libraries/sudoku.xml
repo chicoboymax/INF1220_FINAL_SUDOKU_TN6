@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="sudoku">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/sudoku.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

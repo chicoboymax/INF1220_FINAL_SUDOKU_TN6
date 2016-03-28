@@ -1,8 +1,6 @@
 /*
- * Modifi� par Colombiano Kedowide
+ * Modifié par Colombiano Kedowide
  *
- * TODO Pour changer le mod�le de ce fichier g�n�r�, allez � :
- * Fen�tre - Pr�f�rences - Java - Style de code - Mod�les de code
  */
 
 import java.io.BufferedReader;
@@ -12,18 +10,10 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.RandomAccessFile;
-import java.util.StringTokenizer;
-
 import javax.swing.JFrame;
 
-/**
- * @author Administrateur
- *
- *         TODO Pour changer le mod�le de ce commentaire de type g�n�r�, allez �
- *         : Fen�tre - Pr�f�rences - Java - Style de code - Mod�les de code
- */
 public class FileLogger {
-	// Declaration des objets lecture/�criture
+	// Declaration des objets lecture/écriture
 	JFrame frame;
 	File rep;
 	File copy;
@@ -139,7 +129,7 @@ public class FileLogger {
 
 	/**
 	 * @param erreur
-	 *            erreur � d�finir.
+	 *            erreur à définir.
 	 */
 	public void setErreur(boolean erreur) {
 		this.erreur = erreur;

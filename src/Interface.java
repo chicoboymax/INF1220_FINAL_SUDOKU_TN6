@@ -4,8 +4,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-
 import javax.swing.*;
 
 public class Interface extends JFrame {
@@ -134,7 +132,7 @@ public class Interface extends JFrame {
 	public BufferedImage toBufferedImage(Image image) {
 		/** On test si l'image n'est pas déja une instance de BufferedImage */
 		if (image instanceof BufferedImage) {
-			/** cool, rien � faire */
+			/** cool, rien à faire */
 			return ((BufferedImage) image);
 		} else {
 			/** On s'assure que l'image est complètement chargée */
@@ -156,6 +154,7 @@ public class Interface extends JFrame {
 		Interface graphique = new Interface();
 
 		graphique.addWindowListener(new WindowAdapter() {
+			@Override
 			public void windowClosing(WindowEvent evt) {
 				System.exit(0);
 			}
@@ -195,7 +194,7 @@ public class Interface extends JFrame {
 
 	/**
 	 * @param contentPanel
-	 *            contentPanel � d�finir.
+	 *            contentPanel à définir.
 	 */
 	public void setContentPanel(JPanel contentPanel) {
 		this.contentPanel = contentPanel;

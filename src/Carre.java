@@ -1,8 +1,6 @@
 /*
- * modifi� le 20 novembre. 2009
- *
- * TODO Pour changer le mod�le de ce fichier g�n�r�, allez � :
- * Fen�tre - Pr�f�rences - Java - Style de code - Mod�les de code
+ * Modifié le 28/03/2016
+ * par Maxime Drouin
  */
 
 import java.awt.Color;
@@ -35,24 +33,18 @@ public class Carre extends JComponent {
 		this.i = i;
 		this.e = e;
 		super.setBounds(positionx, positiony, longueur, largeur);
-
-		// Here is a code for setting a tooltip to the square
-		// ONE THING TO DO THE NEXT RELEASE
-		// setToolTipText("Click this button to enable the middle button.");
 	}
 
+	@Override
 	public void paintComponent(Graphics g) {
 		if (coche) {
 			BufferedImage imagetemp = toBufferedImage(this.createImage(
 					longeur - 1, largeur - 1));
-			Graphics2D g2d = imagetemp.createGraphics(); // on r�cup�re le
-															// contexte
-															// graphique de la
-															// BufferedImage
+			// on récupère le contexte graphique de la BufferedImage
+			Graphics2D g2d = imagetemp.createGraphics();
 			g2d.drawImage(bg, 0, 0, null);
-
-			g2d.setColor(Color.red); // on met l'�tat de couleur rouge � la
-										// BufferedImage
+			// on met l'état de couleur rouge à la BufferedImage
+			g2d.setColor(Color.red);
 			g2d.fill3DRect(0, 0, longeur, 1, false);
 			g2d.fill3DRect(0, 0, 1, longeur, false);
 			g2d.fill3DRect(0, longeur - 2, longeur, 1, false);
@@ -73,7 +65,7 @@ public class Carre extends JComponent {
 
 	/**
 	 * @param bg
-	 *            bg � d�finir.
+	 *            bg à définir.
 	 */
 	public void setBg(Image bg) {
 		this.bg = bg;
@@ -88,7 +80,7 @@ public class Carre extends JComponent {
 
 	/**
 	 * @param e
-	 *            e � d�finir.
+	 *            e à définir.
 	 */
 	public void setE(int e) {
 		this.e = e;
@@ -103,28 +95,28 @@ public class Carre extends JComponent {
 
 	/**
 	 * @param i
-	 *            i � d�finir.
+	 *            i à définir.
 	 */
 	public void setI(int i) {
 		this.i = i;
 	}
 
 	BufferedImage toBufferedImage(Image image) {
-		/** On test si l'image n'est pas d�ja une instance de BufferedImage */
+		/** On test si l'image n'est pas déja une instance de BufferedImage */
 		if (image instanceof BufferedImage) {
-			/** cool, rien � faire */
-			return ((BufferedImage) image);
+			/** cool, rien à faire */
+			return (BufferedImage) image;
 		} else {
-			/** On s'assure que l'image est compl�tement charg�e */
+			/** On s'assure que l'image est complètement chargée */
 			image = new ImageIcon(image).getImage();
-			/** On cr�e la nouvelle image */
+			/** On créer la nouvelle image */
 			BufferedImage bufferedImage = new BufferedImage(
 					image.getWidth(null), image.getHeight(null),
 					BufferedImage.TYPE_INT_RGB);
 			Graphics g = bufferedImage.createGraphics();
 			g.drawImage(image, 0, 0, null);
 			g.dispose();
-			return (bufferedImage);
+			return bufferedImage;
 		}
 	}
 
@@ -137,7 +129,7 @@ public class Carre extends JComponent {
 
 	/**
 	 * @param coche
-	 *            coche � d�finir.
+	 *            coche à définir.
 	 */
 	public void setCoche(boolean coche) {
 		this.coche = coche;

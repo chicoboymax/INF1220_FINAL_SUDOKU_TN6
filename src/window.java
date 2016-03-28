@@ -1,11 +1,12 @@
 /*********************************************************************/
   /*************            window.java            *********************/
 /*************   Affiche une fenetre d'intro ou  *********************/
-/************* une fenetre expliquant les regles *********************/
-/*************       Modifi� par Colombiano k    *********************/
+/************* une fenetre expliquant les règles *********************/
+/*************       Modifié par Colombiano k    *********************/
 /*********************************************************************/
 
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.*;
 
@@ -39,13 +40,13 @@ public class window extends JWindow {
 		fen.add(bouton);
 		bouton.setVisible(true);
 
-		show();
+		setVisible(true);
 		/*
 		 * Si c'est une fenetre d'intro, on ne l'affiche que 2 secondes
 		 */
 		if (type == 1) {
 			try {
-				t.sleep(2000);
+				Thread.sleep(2000);
 				thread = 1;
 			} catch (java.lang.InterruptedException ex) {
 				JOptionPane.showMessageDialog(null, "erreur");
@@ -59,6 +60,7 @@ public class window extends JWindow {
 		 */
 		else {
 			bouton.addActionListener(new ActionListener() {
+				@Override
 				public void actionPerformed(ActionEvent e) {
 					dispose();
 				}

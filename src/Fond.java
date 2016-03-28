@@ -16,8 +16,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import org.w3c.dom.events.EventException;
-
 public class Fond extends JPanel {
 	Image bg;
 	Interface map;
@@ -198,7 +196,6 @@ public class Fond extends JPanel {
 			repaint();
 			map.sudoku.afficher(map.sudoku.grille);
 		} catch (IOException e) {
-			// FAIRE Bloc catch auto-g�n�r�
 			e.printStackTrace();
 		}
 	}
@@ -221,11 +218,11 @@ public class Fond extends JPanel {
 			temp = "Aucune solution !";
 		}
 
-		JOptionPane d = new JOptionPane();
-		d.showMessageDialog(this, temp, "Erreur",
+		JOptionPane.showMessageDialog(this, temp, "Erreur",
 				JOptionPane.INFORMATION_MESSAGE);
 	}
 
+	@Override
 	public void paintComponent(Graphics g) {
 		g.drawImage(bg, 0, 0, null);
 	}
@@ -313,10 +310,15 @@ public class Fond extends JPanel {
 			}
 		}
 		repaint();
-	}  
-	
+	}
+
 	/*********************************************************************************/
 	/**
+	 * Méthode pour effectuer un placement dans la grille. Une nouvelle méthode
+	 * a été créée en plus de celle utilisée lors de la génération de la grille,
+	 * car je ne voulais pas que le joueur puisse annuler un placement généré par
+	 * le programme.
+	 * 
 	 * @param i
 	 *            - La ligne du placement
 	 * @param e
@@ -325,21 +327,23 @@ public class Fond extends JPanel {
 	 *            - La nouvelle valeur du placement
 	 */
 	/*********************************************************************************/
-	public void setPlacement(int i, int e, int donnee) {
+	public void fairePlacement(int row, int col, int donnee) {
+		// Sauvegarde la valeur actuelle au cas où le placement ne serait pas
+		// valide
+		int ancValeur = map.getSudoku().grille[row][col];
 		// Si le placement est valide
-		if (map.getSudoku().validerPlacement(donnee, i, e)) {
+		if (map.getSudoku().validerPlacement(donnee, row, col)) {
 			// Créer une instance de Case à partir des paramètres
-			Case placement = new Case(i, e, map.getSudoku().grille[i][e], donnee);
+			Case placement = new Case(row, col,
+					map.getSudoku().grille[row][col], donnee);
 			// Ajoute le placement dans l'ArrayList
 			map.getSudoku().getHistoriquePlacements().add(placement);
 			// Change la valeur de la grille pour la nouvelle valeur.
-			map.getSudoku().grille[i][e] = donnee;
+			map.getSudoku().grille[row][col] = donnee;
+
 		} else {
-			this.tableauDigits[i][e].setBg(new ImageIcon(
-					"images/nonselec.png").getImage());
-			this.tableauDigits[i][e].nonDispo = false;
-			this.tableauDigits[i][e].setCoche(false);
-			map.repaint();
+			// Si le placement n'est pas valide
+			remettreAncienneValeur(ancValeur, row, col);
 		}
 	}
 
@@ -348,26 +352,54 @@ public class Fond extends JPanel {
 	 * Méthode utilisée pour annuler le dernier placement.
 	 */
 	/********************************************************************************/
-	protected void annulerPlacement() {
+	public void annulerPlacement() {
 		ArrayList<Case> al = map.getSudoku().getHistoriquePlacements();
 		// Vérifie s'il y a un placement à annuler
-		if (al.size() > 0) {
+		if (!al.isEmpty()) {
+			// Va chercher le dernier placement effectué
 			Case placement = al.get(al.size() - 1);
 			int row = placement.getRow();
 			int col = placement.getCol();
 			int ancValeur = placement.getAncValeur();
+			// Réassigne la case à son ancienne valeur
 			map.getSudoku().getGrille()[row][col] = ancValeur;
 			al.remove(al.size() - 1);
+			// Imprime la grille
 			map.getSudoku().afficher(map.getSudoku().getGrille());
-			this.tableauDigits[row][col].setBg(new ImageIcon(
-					"images/nonselec.png").getImage());
-			this.tableauDigits[row][col].nonDispo = false;
-			this.tableauDigits[row][col].setCoche(false);
-			map.repaint();
+			// Remet l'ancienne valeur dans la case
+			remettreAncienneValeur(ancValeur, row, col);
+
 		} else {
+			// S'il n'y a pas de placements à annuler affiche un message.
 			JOptionPane.showMessageDialog(null,
 					"Il n'y a aucun placement à annuler");
 		}
 
+	}
+
+	/*********************************************************************************/
+	/**
+	 * Méthode utilisée pour remettre une valeur dans le carre au niveau de
+	 * l'affichage
+	 * 
+	 * @param valeur
+	 *            - La valeur
+	 * @param row
+	 *            - La ligne ou se trouve le carré
+	 * @param col
+	 *            - La colonne ou se trouve le carré
+	 */
+	/********************************************************************************/
+	public void remettreAncienneValeur(int valeur, int row, int col) {
+		if (valeur != 0) {
+			tableauDigits[row][col].setBg(map.nbDispo[map.getSudoku()
+					.getGrille()[row][col] - 1]);
+		} else {
+			tableauDigits[row][col].setBg(new ImageIcon("images/nonselec.png")
+					.getImage());
+		}
+		tableauDigits[row][col].nonDispo = false;
+		tableauDigits[row][col].setCoche(false);
+		map.repaint();
 	}
 }
